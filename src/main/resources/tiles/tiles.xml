@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
+		<put-attribute name="title" value=""/>
+		<put-attribute name="header1" value="/WEB-INF/views/common/header1.jsp"/>
+		<put-attribute name="header2" value="/WEB-INF/views/common/header2.jsp"/>
+		<put-attribute name="content" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
+	</definition>
+	
+	<definition name="home" extends="baseLayout">
+		<put-attribute name="title" value="메인"/>
+		<put-attribute name="content" value="/WEB-INF/views/home.jsp"/>
+	</definition>
+	
+	<definition name="board/list" extends="baseLayout">
+		<put-attribute name="title" value="게시판"/>
+		<put-attribute name="content" value="/WEB-INF/views/board/list.jsp"/>
+		
+	</definition>
+	
+</tiles-definitions>

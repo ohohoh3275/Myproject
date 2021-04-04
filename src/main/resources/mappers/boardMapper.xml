@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+	<insert id="insert">
+		<![CDATA[
+		insert into myboard(bno, title, content, writer)
+		values(myboard_seq.nextval, #{title}, #{content}, #{writer})
+		]]>
+	</insert>
+<!-- 
+	<select id="list" resultType="kr.co.vo.BoardVO">
+		select bno, title, writer, bdate
+		from myboard
+		order by bno desc
+	</select>
+-->
+	<select id="read" parameterType="int"
+		resultType="kr.co.vo.BoardVO">
+		<![CDATA[
+		select bno, title, content, writer, bdate
+		from myboard where
+		bno = #{bno}
+		]]>
+	</select>
+
+	<update id="update" parameterType="kr.co.vo.BoardVO">
+		<![CDATA[
+		update myboard set title = #{title}, content=#{content}
+		where bno = #{bno}
+		]]>
+	</update>
+
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+		delete from myboard
+		where
+		bno=#{bno}
+		]]>
+	</delete>
+
+<!-- 
+	<select id="listPage" resultType="kr.co.vo.BoardVO"
+		parameterType="kr.co.vo.Criteria">
+		<![CDATA[
+		select bno, title, content, writer, bdate
+		from
+		(select bno, title, content, writer, bdate, row_number() over(order by bno desc) 
+		as rNum from myboard)
+		where rNum between #{rowStart} and #{rowEnd}
+		order by bno desc
+		]]>
+	</select>
+	
+	<select id="listCount" resultType="int">
+		<![CDATA[
+			select count(bno) from myboard
+			where bno > 0
+		]]>
+	</select>
+-->	
+	<select id="listPage" resultType="kr.co.vo.BoardVO" parameterType="kr.co.vo.SearchCriteria">
+		SELECT  BNO, 
+		        TITLE, 
+		        CONTENT,
+		        WRITER, 
+		        bdate
+		 FROM ( 
+		        SELECT BNO, 
+		               TITLE, 
+		               CONTENT, 
+		               WRITER, 
+		               bdate, 
+		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+		         FROM myBOARD
+		         WHERE 1=1 
+		         	<include refid="search"></include>
+		                       ) MP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY BNO DESC
+	</select>
+	
+	<select id="listCount" parameterType="kr.co.vo.SearchCriteria" resultType="int">
+		SELECT COUNT(BNO)
+		   FROM myboard
+		   WHERE 1=1
+			<include refid="search"></include>	
+		   AND BNO > 0
+	</select>
+	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
+	
+	
+		
+	
+</mapper>
