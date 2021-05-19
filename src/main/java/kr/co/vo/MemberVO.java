@@ -8,6 +8,30 @@ public class MemberVO {
 	private String userPass;
 	private String userName;
 	private Date regDate;
+	private String userEmail;
+	private String userPhoneNumber;
+
+	private String userPass2;
+	
+	
+	public String getUserPass2() {
+		return userPass2;
+	}
+	public void setUserPass2(String userPass2) {
+		this.userPass2 = userPass2;
+	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+	public String getUserPhoneNumber() {
+		return userPhoneNumber;
+	}
+	public void setUserPhoneNumber(String userPhoneNumber) {
+		this.userPhoneNumber = userPhoneNumber;
+	}
 	public String getUserId() {
 		return userId;
 	}

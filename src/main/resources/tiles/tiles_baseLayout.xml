@@ -10,16 +10,16 @@
 		<put-attribute name="content" value=""/>
 		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 	</definition>
-	
-	<definition name="home" extends="baseLayout">
-		<put-attribute name="title" value="메인"/>
-		<put-attribute name="content" value="/WEB-INF/views/home.jsp"/>
+
+	<definition name="member/join" extends="baseLayout">
+		<put-attribute name="title" value="회원가입"/>
+		<put-attribute name="content" value="/WEB-INF/views/common/join.jsp"/>
 	</definition>
-	
-	<definition name="board/list" extends="baseLayout">
-		<put-attribute name="title" value="게시판"/>
-		<put-attribute name="content" value="/WEB-INF/views/board/list.jsp"/>
-		
+	<definition name="member/login" extends="baseLayout">
+		<put-attribute name="title" value="로그인"/>
+		<put-attribute name="content" value="/WEB-INF/views/common/login.jsp"/>
 	</definition>
+
 	
+
 </tiles-definitions>

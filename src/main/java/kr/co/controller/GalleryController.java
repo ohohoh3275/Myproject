@@ -1,14 +1,13 @@
 package kr.co.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.service.GalleryService;
+import kr.co.util.GalleryUtils;
 import kr.co.vo.ImageVO;
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -33,8 +33,10 @@ public class GalleryController {
 	@Inject
 	public GalleryService service;
 
-	private static final String uploadPath = "c:\\springimages";
-	private static final String thumbnailPath = "C:\\Program Files\\sts-3.9.14.RELEASE\\workspace\\001MyProject\\src\\main\\webapp\\WEB-INF\\thumbnails";
+	private static final String uploadPath = "C:\\Program Files\\sts-3.9.14.RELEASE\\workspace\\001MyProject\\src\\main\\webapp" + 
+			"\\WEB-INF\\resources\\uploadImage";
+	private static final String thumbnailPath = "C:\\Program Files\\sts-3.9.14.RELEASE\\workspace\\001MyProject\\src\\main\\webapp"
+			+ "\\WEB-INF\\resources\\thumbnails";
 	
 	private static ArrayList<ImageVO> uploadList = new ArrayList<ImageVO>();
 
@@ -44,10 +46,9 @@ public class GalleryController {
 	private ModelAndView thumbnailView(HttpServletResponse response) throws Exception {
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("list", service.select());
 		
-		System.out.println(service.select().toString());
-		mv.setViewName("/gallery/list");
+		mv.addObject("list", service.select());
+		mv.setViewName("gallery/list");
 
 		return mv;
 	
@@ -56,16 +57,16 @@ public class GalleryController {
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String write() throws Exception {
 
-		return "/gallery/write";
+		return "gallery/write";
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public ArrayList<ImageVO> uploadAjax(@RequestParam MultipartFile[] uploadFile) throws Exception {
-		logger.info("upload ajax");
 
 		File uploadFolder = GalleryUtils.makeFolder(uploadPath);
 
+		
 		for (MultipartFile multipartFile : uploadFile) {
 
 			String fileName = multipartFile.getOriginalFilename();
@@ -77,17 +78,25 @@ public class GalleryController {
 
 			File saveFile = new File(uploadFolder, fileName);
 
+			ImageVO vo = new ImageVO(fileName, uploadFolder.toString(), uuid, true);
+			
 			if (GalleryUtils.checkImage(saveFile)) {
-				ImageVO vo = new ImageVO(fileName, uploadFolder.toString(), uuid, true);
 				uploadList.add(vo);
-
-				multipartFile.transferTo(saveFile);
-				GalleryUtils.makeThumbnail(multipartFile, thumbnailPath, fileName);
+				multipartFile.transferTo(saveFile);	
+			}
+			
+			if(saveFile.getName().equals(uploadList.get(0).getFileName())) {
+				String thumbnailName="thumbnail_"+uploadList.get(0).getFileName();
+				File thumbnailFile = new File(thumbnailPath, thumbnailName);
+				
+				Thumbnails.of(saveFile).size(250, 250).toFile(thumbnailFile);
 				
 			}
-
+			
 		}
-
+		
+		
+		
 		return uploadList;
 
 	}
@@ -99,20 +108,21 @@ public class GalleryController {
 
 		uploadVO.setFileName(uploadList.get(0).getFileName());
 		uploadVO.setUploadPath(uploadList.get(0).getUploadPath());
-
-		logger.info("---------send success-------------");
+		
+		
 		String title = (String) request.getParameter("title");
 		String content = (String) request.getParameter("content");
-
+		String writer = (String) request.getParameter("writer");
+		
 		uploadVO.setTitle(title);
 		uploadVO.setContent(content);
-		uploadVO.setWriter("글쓴ㅇㅣ");
+		uploadVO.setWriter(writer);
 
 		logger.info(title + content + uploadList.toString());
 
 		service.insert(uploadVO);
 
-		return "gallery/list";
+		return "redirect:/gallery/list";
 	}
 
 }

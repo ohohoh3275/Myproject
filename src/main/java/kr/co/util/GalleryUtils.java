@@ -1,8 +1,7 @@
-package kr.co.controller;
+package kr.co.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.controller.GalleryController;
 import net.coobird.thumbnailator.Thumbnailator;
 
 public class GalleryUtils {
@@ -44,11 +44,13 @@ public class GalleryUtils {
 	}
 	
 	
+	
 
-	public static void makeThumbnail(MultipartFile multipartFile, String thumbnailPath, String fileName) throws IOException {
+	public static void makeThumbnail(MultipartFile multipartFile, String thumbnailPath, String fileName) throws Exception {
 		
 		FileOutputStream thumbnail = new FileOutputStream(new File(thumbnailPath, "thumbnail_" + fileName));
 		Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 2048, 2048);
+		thumbnail.write(200);	
 		thumbnail.close();
 	}
 	
@@ -63,4 +65,6 @@ public class GalleryUtils {
 		return returnValue;
 
 	}
+
+	
 }

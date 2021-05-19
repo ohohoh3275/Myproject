@@ -23,12 +23,13 @@
 </head>
 <body>
     <div id="wrap">
+
         <ul>
-            <li class="menu">HOME</li>
-            <li class="menu">ABOUT</li>
+            <li class="menu"><a href="/">HOME</a></li>
+            <li class="menu"><a href="/about">ABOUT</a></li>
             <li class="menu"><a href="/board/list">BOARD</a></li>
             <li class="menu"><a href="/gallery/list">GALLERY</a></li>
-            <li class="menu">??</li>
+            <li class="menu"><a></a></li>
         </ul>
     </div>	
 

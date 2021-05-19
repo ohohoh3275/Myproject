@@ -27,32 +27,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Nanum+Pen+Script&display=swap');
 </style>
 <style>
-	#list_wrap{
+	#listWrap{
 		text-align:center;
 		font-size:20px;
 		font-family: 'Nanum Gothic', sans-serif;
+		padding-bottom:5%;
+		margin-top:3%;
 	}
 	
 	table{
 		margin-right:auto;
 		margin-left:auto;
 	}
-	th, tr, td{
-		padding-left:120px;
-		padding-top:10px;
+	
+	th{
+		background-color:rgb(255, 200, 200);
 	}
-	#write{
-		margin-right:-45%;
-		
+	td{
+		padding: 5px 50px 5px 50px;
+		border:solid black 0.3px;
+	 
+	 }
+	#writeBtn{
+		margin-left:40%;
+		margin-bottom:10px;
+	}
+	#searchBtn{
+		width:50px;height:30px;
+		font-size:15px;
 	}
 	
 </style>
 </head>
 <body>
-<div id="list_wrap">
-	<br><br>
-	<div id="write"><a href="writeView">글쓰기</a></div>
-	<br><br>
+<div id="listWrap">
+	<button id="writeBtn" onClick="location.href='writeView'">글쓰기</button>
 
 	<form role="form" method="get">
 		<table>

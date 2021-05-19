@@ -27,6 +27,12 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
+	@RequestMapping(value="/about", method=RequestMethod.GET)
+	public String about() {
+		
+		return "aboutView";
+	}
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);

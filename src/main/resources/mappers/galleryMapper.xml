@@ -12,7 +12,8 @@
 
 	<select id="select" resultType="kr.co.vo.ImageVO">
 		<![CDATA[	
-			select gno, title, content, writer, bdate, filename, uploadpath from myfile
+			select gno, title, content, writer, bdate, filename, uploadpath from myfile 
+			order by gno desc
 		]]>
 
 	</select>

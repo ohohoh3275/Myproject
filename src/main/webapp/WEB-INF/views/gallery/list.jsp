@@ -8,37 +8,39 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-div {
-	float: left;
-	border: 1px solid black;
-}
 
-#wrap {
-	position: relative;
-	margin-right: auto;
-	margin-left: auto;
-	text-align: center;
-	width: 1300px;
+
+#galleryWrap {
+	position:relative;
+	margin-top:3%;
+	margin-left:10%;
+	width: 1500px;
 	height: auto;
 }
 
-#content {
-	margin: 10px;
-	width: 300px;
+#galleryList {
+ 	float: left;
+	border: 1px solid black;
 	height: 300px;
 	width: 300px;
+}
+
+#images{
+	width:280px;height:280px;
+}
+#writeBtn{
+	margin-left:70%;
+	margin-bottom:20px;
 }
 </style>
 </head>
 <body>
-
-	<a href="/gallery/write">글쓰기</a>
-	<br>
-	<div id="wrap">
+	<div id="galleryWrap">
+		<button id="writeBtn" onClick="location.href='/gallery/write'">글쓰기</button><br>
 		<c:forEach items="${list }" var="list">
-			<div id="content">
-				<img src="/001MyProject/src/main/webapp/WEB-INF/resources/thumbnails/thumbnail_
-				${list.fileName }" style="width:200px;height:200px;">
+			<div id="galleryList">
+				<img id="images" src="../resources/thumbnails/thumbnail_${list.fileName }">
+				<div style="text-align:center;">${list.title }</div>
 			</div>
 		</c:forEach>
 	</div>

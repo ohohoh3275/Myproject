@@ -7,9 +7,9 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.service.MemberService;
 import kr.co.vo.MemberVO;
@@ -23,10 +23,10 @@ public class MemberController {
 	@Inject
 	public MemberService service;
 	
-	@RequestMapping(value="/join", method=RequestMethod.GET)
+	@GetMapping("/join")
 	public String showJoin() throws Exception{
 		
-		return "common/join";
+		return "member/join";
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
@@ -41,11 +41,11 @@ public class MemberController {
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String showLogin() throws Exception{
 		
-		return "common/login";
+		return "member/login";
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+	public String login(MemberVO vo, HttpServletRequest req) throws Exception{
 		logger.info("post login");
 		
 		HttpSession session = req.getSession();
@@ -53,7 +53,7 @@ public class MemberController {
 		
 		if(login == null) {
 			session.setAttribute("member", null);
-			rttr.addFlashAttribute("msg", false);
+			session.setAttribute("msg", false);
 		}else {
 			session.setAttribute("member", login);
 		}
@@ -63,6 +63,9 @@ public class MemberController {
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception{
+		
+
+		session.setAttribute("member", null);
 		session.invalidate();
 		
 		return "redirect:/";
