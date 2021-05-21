@@ -32,11 +32,15 @@ public class GalleryController {
 
 	@Inject
 	public GalleryService service;
+	
+	//C:\\Program Files\\sts-3.9.14.RELEASE\\ -- relative path
 
-	private static final String uploadPath = "C:\\Program Files\\sts-3.9.14.RELEASE\\workspace\\001MyProject\\src\\main\\webapp" + 
+	private static final String uploadPath = "workspace\\001MyProject\\src\\main\\webapp" + 
 			"\\WEB-INF\\resources\\uploadImage";
-	private static final String thumbnailPath = "C:\\Program Files\\sts-3.9.14.RELEASE\\workspace\\001MyProject\\src\\main\\webapp"
+	private static final String thumbnailPath = "workspace\\001MyProject\\src\\main\\webapp"
 			+ "\\WEB-INF\\resources\\thumbnails";
+
+	
 	
 	private static ArrayList<ImageVO> uploadList = new ArrayList<ImageVO>();
 
@@ -44,6 +48,7 @@ public class GalleryController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	private ModelAndView thumbnailView(HttpServletResponse response) throws Exception {
+		
 		
 		ModelAndView mv = new ModelAndView();
 		
