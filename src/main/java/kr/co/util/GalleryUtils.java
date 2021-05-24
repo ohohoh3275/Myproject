@@ -15,14 +15,13 @@ import net.coobird.thumbnailator.Thumbnailator;
 
 public class GalleryUtils {
 	private static final Logger logger = LoggerFactory.getLogger(GalleryController.class);
-	private static int folderNameIndex = 0;
-	
+
 	public static String getFolderName() {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 		String folderName = sdf.format(new Date());
-		folderName = folderName.replace("-", File.separator) +"_" + folderNameIndex;
+		folderName = folderName.replace("-", File.separator);
 		
 		return folderName;
 
@@ -36,7 +35,6 @@ public class GalleryUtils {
 
 		if (!uploadFolder.exists()) {
 			uploadFolder.mkdirs();
-			folderNameIndex++;
 		}
 		
 		return uploadFolder;
@@ -50,8 +48,7 @@ public class GalleryUtils {
 		
 		FileOutputStream thumbnail = new FileOutputStream(new File(thumbnailPath, "thumbnail_" + fileName));
 		Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 2048, 2048);
-		thumbnail.write(200);	
-		thumbnail.close();
+		thumbnail.write(200);
 	}
 	
 	

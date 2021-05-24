@@ -90,8 +90,8 @@ public class GalleryController {
 				multipartFile.transferTo(saveFile);	
 			}
 			
-			if(saveFile.getName().equals(uploadList.get(0).getFileName())) {
-				String thumbnailName="thumbnail_"+uploadList.get(0).getFileName();
+			if(saveFile.getName().equals(uploadList.get(uploadList.size()-1).getFileName())) {
+				String thumbnailName="thumbnail_"+uploadList.get(uploadList.size()-1).getFileName();
 				File thumbnailFile = new File(thumbnailPath, thumbnailName);
 				
 				Thumbnails.of(saveFile).size(250, 250).toFile(thumbnailFile);
@@ -111,8 +111,8 @@ public class GalleryController {
 
 		ImageVO uploadVO = new ImageVO();
 
-		uploadVO.setFileName(uploadList.get(0).getFileName());
-		uploadVO.setUploadPath(uploadList.get(0).getUploadPath());
+		uploadVO.setFileName(uploadList.get(uploadList.size()-1).getFileName());
+		uploadVO.setUploadPath(uploadList.get(uploadList.size()-1).getUploadPath());
 		
 		
 		String title = (String) request.getParameter("title");
