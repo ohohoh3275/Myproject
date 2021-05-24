@@ -22,8 +22,8 @@ create table mymember(
   );
   
 create table myreply(
-  bno number,
-  rno number,
+  bno number(10),
+  rno number(10),
   content varchar2(1000),
   writer varchar2(50),
   bdate date default sysdate
