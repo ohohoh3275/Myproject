@@ -15,7 +15,7 @@ create table myboard(
 create sequence myboard_seq;
 
 create table mymember(
-  userid varcher2(40),
+  userid varchar2(40),
   userpass varchar2(100),
   username varchar2(40),
   regdate date default sysdate
