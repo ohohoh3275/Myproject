@@ -21,14 +21,14 @@ create table mymember(
   regdate date default sysdate
   );
   
-create table myreply(
-  bno number(10),
+create table myreply(  
   rno number(10),
   content varchar2(1000),
   writer varchar2(50),
   bdate date default sysdate
   );
 create sequence myreply_seq;
+ bno number(10) foreign key references myboard(bno),
 
 create table myfile(
   gno number primary key,
