@@ -45,6 +45,8 @@ create sequence myfile_seq;
 
 ---------------------------------
 mysql
+
+
 create schema myproject;
 
 create table myboard( bno int(10) auto_increment primary key, title varchar(100), content varchar(2000), writer varchar(100), bdate date );
