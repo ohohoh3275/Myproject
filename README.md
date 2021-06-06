@@ -43,3 +43,18 @@ create sequence myfile_seq;
 
 
 
+---------------------------------
+mysql
+create schema myproject;
+
+create table myboard( bno int(10) auto_increment primary key, title varchar(100), content varchar(2000), writer varchar(100), bdate date );
+
+
+create table mymember( userid varchar(40), userpass varchar(100), username varchar(40), regdate datetime default current_timestamp );
+
+create table myreply(
+rno int(10) auto_increment primary key, content varchar(1000), writer varchar(50), bdate datetime default current_timestamp ); 
+
+
+create table myfile( gno int auto_increment primary key primary key, title varchar(200), content varchar(200), writer varchar(100), bdate datetime default current_timestamp, filename varchar(1000), uploadpath varchar(1000) ); 
+
